@@ -12,11 +12,30 @@ module.exports = function(grunt) {
         // all of our configuration will go here
         // FIRST TASK: validate js files
         jshint: {
-        	options: {
-        		reporter: require('jshint-stylish')
-        	},
-        	// when this task is run, lint the Gruntfile and all js files in src
-        	build: ['Gruntfile.js', 'src/**/*.js']
+            options: {
+                reporter: require('jshint-stylish')
+            },
+            // when this task is run, lint the Gruntfile and all js files in src
+            build: ['Gruntfile.js', 'src/**/*.js']
+        },
+        // SECOND TASK: minify js files
+        uglify: {
+            options: {
+                banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+            },
+            build: {
+                files: {
+                    'dist/js/magic.min.js': 'src/**/*.js'
+                }
+            }
+        },
+        // THIRD TASK: compile less stylesheets to css
+        less: {
+            build: {
+                files: {
+                    'dist/css/pretty.css': 'src/css/pretty.less'
+                }
+            }
         }
     });
     // ===========================================================================
